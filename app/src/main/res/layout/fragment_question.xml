@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Question">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imgQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/images"/>
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:text=""/>
+
+        <RadioGroup
+            android:id="@+id/rgReponses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="30dp">
+            <RadioButton
+                android:id="@+id/rbRep1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CD"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+            <RadioButton
+                android:id="@+id/rbRep2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CO"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+            <RadioButton
+                android:id="@+id/rbRep3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CB"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+            <RadioButton
+                android:id="@+id/rbRep4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CA"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+            <RadioButton
+                android:id="@+id/rbRepNone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aucune Reponse"
+                android:textColor="#ff0202"
+                android:textSize="20sp"/>
+        </RadioGroup>
+    </LinearLayout>
+
+</FrameLayout>
