@@ -27,7 +27,6 @@ dependencies {
     //TESTS
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
-    implementation 'ch.zhaw:facerecognitionlibrary:1.5.3'
 
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
