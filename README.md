@@ -2,7 +2,7 @@
 Hello, this repository contains a simple application I made for android exam.
 It has the following features:
 ## LoginActivity
-- using default LoginActivity 
+- using default LoginActivity (admin@mail.fr:admin)
 - TODO: Link it to database
 ## QCMActivity
 - Using single template fragment to display all questions
