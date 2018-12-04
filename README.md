@@ -1,7 +1,3 @@
-<p align="Left">
-  <img src ="https://i.imgur.com/5zq4cVfl.jpg" />
-</p>
-
 This repository contains a simple multiple choice quiz android application.
 
 It has the following features:
@@ -15,3 +11,7 @@ It has the following features:
 - TODO: Timer for questions timing
 ## ResultsActivity
 - Displaying result in a DonutProgress View
+
+<p align="Left">
+  <img src ="https://i.imgur.com/5zq4cVfl.jpg" />
+</p>
