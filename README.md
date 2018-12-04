@@ -1,4 +1,8 @@
 This repository contains a simple multiple choice quiz android application.
+
+<p align="center">
+  <img src ="https://imgur.com/a/rhVTKZh"/>
+</p>
 It has the following features:
 ## LoginActivity
 - using default LoginActivity (admin@mail.fr:admin)
