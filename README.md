@@ -1,4 +1,4 @@
-This repository contains a simple application I made for android exam.
+This repository contains a simple multiple choice quiz android application.
 It has the following features:
 ## LoginActivity
 - using default LoginActivity (admin@mail.fr:admin)
