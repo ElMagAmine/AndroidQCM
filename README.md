@@ -1,4 +1,4 @@
-This repository contains a simple multiple choice quiz android application.
+This repository contains a simple multiple choice quiz android application. If you like it, give it a star. 
 
 It has the following features:
 ## LoginActivity
