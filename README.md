@@ -1,5 +1,4 @@
-#Android QCM \n
-Hello, this repository contains a simple application I made for android exam.
+This repository contains a simple application I made for android exam.
 It has the following features:
 ## LoginActivity
 - using default LoginActivity (admin@mail.fr:admin)
