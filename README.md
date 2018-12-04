@@ -13,5 +13,5 @@ It has the following features:
 - Displaying result in a DonutProgress View
 
 This application uses the following third party libraries:
-  com.stepstone.stepper:material-stepper:4.3.1 (https://github.com/stepstone-tech/android-material-stepper)
-  com.github.lzyzsd:circleprogress:1.2.1 (https://github.com/lzyzsd/CircleProgress)
+- com.stepstone.stepper:material-stepper:4.3.1 (https://github.com/stepstone-tech/android-material-stepper)
+- com.github.lzyzsd:circleprogress:1.2.1 (https://github.com/lzyzsd/CircleProgress)
