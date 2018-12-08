@@ -4,17 +4,31 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.magamine.qcm.Adapters.MyStepperAdapter;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements StepperLayout.StepperListener {
 
     public StepperLayout mStepperLayout;
     private MyStepperAdapter mStepperAdapter;
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,4 +58,5 @@ public class MainActivity extends AppCompatActivity implements StepperLayout.Ste
     public void onReturn() {
         //finish();
     }
+
 }

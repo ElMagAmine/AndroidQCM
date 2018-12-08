@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.magamine.qcm.Fragments.Question;
 import com.magamine.qcm.MyAppSingleton;
+import com.magamine.qcm.R;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
@@ -30,7 +31,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 b1.putInt(CURRENT_STEP_POSITION_KEY, position);
                 b1.putString("QUESTION",quest.Qquestion);
                 b1.putStringArray("ANSWERS",quest.Qanswers);
-                b1.putInt("IMAGE",quest.Imag);
+                b1.putInt("IMAGE", R.drawable.triangle);
                 b1.putInt("CORRECT",quest.Correct);
                 step1.setArguments(b1);
                 return step1;
@@ -41,7 +42,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 b2.putInt(CURRENT_STEP_POSITION_KEY, position);
                 b2.putString("QUESTION",quest2.Qquestion);
                 b2.putStringArray("ANSWERS",quest2.Qanswers);
-                b2.putInt("IMAGE",quest2.Imag);
+                b2.putInt("IMAGE",R.drawable.triangle);
                 b2.putInt("CORRECT",quest2.Correct);
                 step2.setArguments(b2);
                 return step2;
@@ -52,7 +53,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 b3.putInt(CURRENT_STEP_POSITION_KEY, position);
                 b3.putString("QUESTION",quest3.Qquestion);
                 b3.putStringArray("ANSWERS",quest3.Qanswers);
-                b3.putInt("IMAGE",quest3.Imag);
+                b3.putInt("IMAGE",R.drawable.triangle);
                 b3.putInt("CORRECT",quest3.Correct);
                 step3.setArguments(b3);
                 return step3;
@@ -63,7 +64,7 @@ public class MyStepperAdapter extends AbstractFragmentStepAdapter {
                 b4.putInt(CURRENT_STEP_POSITION_KEY, position);
                 b4.putString("QUESTION",quest4.Qquestion);
                 b4.putStringArray("ANSWERS",quest4.Qanswers);
-                b4.putInt("IMAGE",quest4.Imag);
+                b4.putInt("IMAGE",R.drawable.triangle);
                 b4.putInt("CORRECT",quest4.Correct);
                 step4.setArguments(b4);
                 return step4;

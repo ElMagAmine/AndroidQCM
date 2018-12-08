@@ -22,4 +22,12 @@
         android:layout_marginTop="10dp"
         android:layout_height="150dp"
         custom:donut_progress="30"/>
+    <Button
+        android:id="@+id/btn_try"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Try again ?"
+        android:textStyle="bold" />
 </LinearLayout>

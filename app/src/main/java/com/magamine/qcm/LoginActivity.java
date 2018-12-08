@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,9 +30,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -44,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
+    private static final String TAG = LoginActivity.class.getSimpleName();
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -67,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loadQuestions();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -90,11 +104,175 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
             }
         });
+        Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
+        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+    private void loadUser() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_LoadEvents";
 
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_LOGIN, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Loading Response: " + response.toString());
+                try {
+
+                    JSONObject jObj= new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    JSONArray jsonArray;
+                    // Check for error node in json
+                    if (!error)
+                    {
+
+                        Toast.makeText(LoginActivity.this,
+                                "Logged In", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        //EndThis(quest);
+                    }
+                    else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("message");
+                        Toast.makeText(LoginActivity.this,
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    //hideDialog();
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Loading Error: " + error.getMessage());
+                Toast.makeText(LoginActivity.this,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                //hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", mEmailView.getText().toString());
+                params.put("password", mPasswordView.getText().toString());
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        MyAppSingleton.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void loadQuestions() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_LoadEvents";
+
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_QUESTIONS, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Loading Response: " + response.toString());
+                try {
+
+                    JSONObject jObj= new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    JSONArray jsonArray;
+                    // Check for error node in json
+                    if (!error)
+                    {
+                        ArrayList<MyAppSingleton.QuestionForm> quest = new ArrayList<MyAppSingleton.QuestionForm>();
+
+                        //["1","ABCD est un carre de centre O. La distance de C a la droite (DB) est :","1","0","cd,co,cb,ca"]
+                        jsonArray = jObj.getJSONArray("Rows");
+                        JSONArray row;
+                        for(int i = 0;i<jsonArray.length();i++)
+                        {
+                            row = jsonArray.getJSONArray(i);
+                            String question = row.getString(1);
+                            int correct = Integer.parseInt(row.getString(2));
+                            int imgRes = Integer.parseInt(row.getString((3)));
+                            String[] answers = row.getString((4)).split(",");
+
+                            quest.add(new MyAppSingleton.QuestionForm(question,answers,correct,imgRes));
+                            //String DateDeb = row.getString((5));
+                            //String DateFin = row.getString((6));
+                            //EventsFragment.itemsList.add(new EventListItem(Titre,Description,Lieu,Type,DateDeb,DateFin));
+                            String str = "fhdjh";
+                        }
+                        EndThis(quest);
+                    }
+                    else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("message");
+                        Toast.makeText(LoginActivity.this,
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    //hideDialog();
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Loading Error: " + error.getMessage());
+                Toast.makeText(LoginActivity.this,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                //hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                //params.put("categ", par);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        MyAppSingleton.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+    public void EndThis(ArrayList<MyAppSingleton.QuestionForm> q)
+    {
+        MyAppSingleton.setQuestions(q.toArray(new MyAppSingleton.QuestionForm[q.size()]));
+        /*if(User.AdminLevel > 0 && DropsLoaded == false)
+        {
+            InitiateLoadingDrops();
+        }
+        else
+        {
+
+        }*/
+    }
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -186,14 +364,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
+            loadUser();
         }
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.length() > 4;
     }
 
     private boolean isPasswordValid(String password) {
@@ -311,8 +490,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                //loadQuestions();
+                //Thread.sleep(2000);
+
+            } catch (Exception e) {
                 return false;
             }
 
@@ -349,6 +530,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+
     }
 }
 
